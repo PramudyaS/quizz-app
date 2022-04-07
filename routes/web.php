@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::get('register',Auth\RegisterViewController::class)->name('register');
 Route::post('register/store',Auth\RegisterController::class)->name('register.store');
 
 Route::group(['prefix'=>'admin','name'=>'admin.'],function(){
+
+    Route::resource('question_category',Controllers\QuestionCategoryController::class);
     Route::get('/',function(){
         return view('layouts.admin_layout');
     });

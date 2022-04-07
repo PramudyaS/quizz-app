@@ -4,6 +4,8 @@
     </head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <body>
 <div class="md:flex flex-col md:flex-row md:min-h-screen w-full bg-gray-100">
     <!---- Sidebar ---->
@@ -52,7 +54,20 @@
     <div class="flex w-full px-5 py-5">
         @yield('content')
     </div>
-</div>
 
+    <form method="POST" action="" id="delete-form">
+            @csrf
+            @method('DELETE')
+    </form>
+</div>
+<script>
+    $('.delete-action').click(function(e){
+        e.preventDefault() // Don't post the form, unless confirmed
+        if (confirm('Are you sure?')) {
+            var href = $(this).attr('href');
+            $('#delete-form').attr('action',href).submit();
+        }
+    });
+</script>
 </body>
 </html>

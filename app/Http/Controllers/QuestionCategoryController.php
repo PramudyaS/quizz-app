@@ -14,7 +14,9 @@ class QuestionCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $question_categories = QuestionCategory::paginate(10);
+
+        return view('admin.question_category.index',compact('question_categories'));
     }
 
     /**
@@ -24,7 +26,7 @@ class QuestionCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.question_category.create');
     }
 
     /**
@@ -35,7 +37,11 @@ class QuestionCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $question_category = new QuestionCategory();
+        $question_category->name = $request->name;
+        $question_category->save();
+
+        return redirect()->route('question_category.index')->withMessage('Success create new question category');
     }
 
     /**
@@ -46,7 +52,7 @@ class QuestionCategoryController extends Controller
      */
     public function show(QuestionCategory $questionCategory)
     {
-        //
+
     }
 
     /**
@@ -57,7 +63,7 @@ class QuestionCategoryController extends Controller
      */
     public function edit(QuestionCategory $questionCategory)
     {
-        //
+        return view('admin.question_category.edit',compact('questionCategory'));
     }
 
     /**
@@ -69,7 +75,11 @@ class QuestionCategoryController extends Controller
      */
     public function update(Request $request, QuestionCategory $questionCategory)
     {
-        //
+        $question_category = QuestionCategory::find($questionCategory->id);
+        $question_category->name = $request->name;
+        $question_category->save();
+
+        return redirect()->route('question_category.index')->withMessage('Success update question category');
     }
 
     /**
@@ -80,6 +90,8 @@ class QuestionCategoryController extends Controller
      */
     public function destroy(QuestionCategory $questionCategory)
     {
-        //
+        $questionCategory->deleteOrFail();
+
+        return redirect()->route('question_category.index')->withMessage('Success delete question category');
     }
 }
