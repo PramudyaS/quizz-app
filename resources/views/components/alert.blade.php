@@ -3,7 +3,7 @@
         toastr.error('{{ \Illuminate\Support\Facades\Session::get('error')  }}');
     @endif
 
-    @if(\Session::has('success'))
+    @if(\Session::has('message'))
     toastr.success('{{ \Illuminate\Support\Facades\Session::get('success')  }}');
     @endif
 </script>

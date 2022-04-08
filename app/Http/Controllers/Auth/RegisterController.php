@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Actions\User\CreateNewUser;
+use App\Http\Actions\User\LoggedIn;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class RegisterController extends Controller
      */
     public function __invoke(RegisterRequest $request,CreateNewUser $user)
     {
-        $user->create($request);
+        $verified_user = $user->create($request);
+        (new LoggedIn())->login($verified_user);
         return redirect('/')->withMessage('Success register account');
     }
 }

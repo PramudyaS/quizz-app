@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\Question;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends Controller
 {
@@ -35,7 +38,23 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user()->id;
+        $answers = collect($request->right_answer)->map(function($item,$key) use($request,$user){
+            return [
+                'token'         => $request->session()->token(),
+                'question_id'   => $key,
+                'user_id'       => $user,
+                'answer'        => $request->right_answer[$key],
+                'status'        => Question::find($key)->correct_answer === $request->right_answer[$key] ?? false,
+                'date'          => Carbon::now(),
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now()
+            ];
+        })->values()->toArray();
+
+        $answer = Answer::insert($answers);
+
+        return redirect()->route('answer.show',$request->session()->token())->withMessage('Success do quiz');
     }
 
     /**
@@ -44,9 +63,17 @@ class AnswerController extends Controller
      * @param  \App\Models\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function show(Answer $answer)
+    public function show($token)
     {
-        //
+        $report = Answer::where('token',$token)
+            ->with('question.question_category')
+            ->get();
+
+        $correct    = $report->where('status',1)->count();
+        $incorrect  = $report->where('status',0)->count();
+        $percentage = $correct / $incorrect * 100;
+
+        return view('guest.report_quiz',compact('report','correct','incorrect','percentage'));
     }
 
     /**

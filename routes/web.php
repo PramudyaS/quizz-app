@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth;
 use App\Http\Controllers;
+use App\Http\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,9 @@ Route::post('login/store',Auth\LoginController::class)->name('login.store');
 Route::get('register',Auth\RegisterViewController::class)->name('register');
 Route::post('register/store',Auth\RegisterController::class)->name('register.store');
 
-Route::group(['prefix'=>'admin','name'=>'admin.'],function(){
+Route::get('logout',Auth\LogoutController::class)->name('logout');
 
+Route::group(['prefix'=>'admin','name'=>'admin.','middleware'=>[Middleware\Authenticate::class,Middleware\AdminMiddleware::class]],function(){
     Route::resource('question_category',Controllers\QuestionCategoryController::class);
     Route::resource('question',Controllers\QuestionController::class);
     Route::get('/',function(){
@@ -34,6 +36,9 @@ Route::group(['prefix'=>'admin','name'=>'admin.'],function(){
     });
 });
 
-Route::group(['prefix'=>'guest','name'=>'guest.'],function(){
-
+Route::group(['prefix'=>'guest','name'=>'guest.','middleware'=>[Middleware\Authenticate::class,
+    Middleware\GuestMiddleware::class]],function(){
+    Route::get('quest',Controllers\ChooseQuestionController::class)->name('quest');
+    Route::get('quest/show',Controllers\ShowQuestionController::class)->name('quest.show');
+    Route::resource('answer',Controllers\AnswerController::class);
 });

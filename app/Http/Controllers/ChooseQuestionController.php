@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\QuestionCategory;
 use Illuminate\Http\Request;
 
 class ChooseQuestionController extends Controller
@@ -14,6 +15,9 @@ class ChooseQuestionController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //
+        $question_categories = QuestionCategory::has('questions')
+            ->get();
+
+        return view('guest.quest.index',compact('question_categories'));
     }
 }

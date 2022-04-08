@@ -39,7 +39,7 @@ class LoginController extends Controller
 
         if($user->role === "guest")
         {
-            return back()->withMessage('Login Success');
+            return redirect('/')->withMessage('Login Success');
         }
     }
 }
