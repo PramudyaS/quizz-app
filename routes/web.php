@@ -28,7 +28,12 @@ Route::post('register/store',Auth\RegisterController::class)->name('register.sto
 Route::group(['prefix'=>'admin','name'=>'admin.'],function(){
 
     Route::resource('question_category',Controllers\QuestionCategoryController::class);
+    Route::resource('question',Controllers\QuestionController::class);
     Route::get('/',function(){
         return view('layouts.admin_layout');
     });
+});
+
+Route::group(['prefix'=>'guest','name'=>'guest.'],function(){
+
 });

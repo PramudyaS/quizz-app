@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\QuestionCategory;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -14,7 +15,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $question = Question::with('question_category')->paginate(10);
+
+        return view('admin.question.index',compact('question'));
     }
 
     /**
@@ -24,7 +27,9 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        $question_categories = QuestionCategory::all();
+
+        return view('admin.question.create',compact('question_categories'));
     }
 
     /**
@@ -35,7 +40,14 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $question = new Question();
+        $question->question_category_id = $request->question_category_id;
+        $question->name                 = $request->name;
+        $question->question_answers     = json_encode($request->answer_text);
+        $question->correct_answer       = $request->right_answer;
+        $question->save();
+
+        return redirect()->route('question.index')->withMessage('Success create question');
     }
 
     /**
@@ -57,7 +69,11 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        $question_categories = QuestionCategory::all();
+        $question_answers = json_decode($question->question_answers);
+
+        return view('admin.question.edit',
+            compact('question','question_categories','question_answers'));
     }
 
     /**
@@ -69,7 +85,14 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $question = Question::find($question->id);
+        $question->question_category_id = $request->question_category_id;
+        $question->name                 = $request->name;
+        $question->question_answers     = json_encode($request->answer_text);
+        $question->correct_answer       = $request->right_answer;
+        $question->save();
+
+        return redirect()->route('question.index')->withMessage('Success update question');
     }
 
     /**

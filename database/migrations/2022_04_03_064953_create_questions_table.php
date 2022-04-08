@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('question_category_id')->constrained('question_categories')->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->string('name');
-            $table->json('incorrect_answer');
+            $table->json('question_answers');
             $table->string('correct_answer');
             $table->timestamps();
         });
