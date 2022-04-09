@@ -31,6 +31,7 @@ Route::get('logout',Auth\LogoutController::class)->name('logout');
 Route::group(['prefix'=>'admin','name'=>'admin.','middleware'=>[Middleware\Authenticate::class,Middleware\AdminMiddleware::class]],function(){
     Route::resource('question_category',Controllers\QuestionCategoryController::class);
     Route::resource('question',Controllers\QuestionController::class);
+    Route::resource('user',Controllers\UserController::class);
     Route::get('/',function(){
         return view('layouts.admin_layout');
     });
