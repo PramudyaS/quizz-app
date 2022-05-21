@@ -35,6 +35,11 @@ Route::group(['prefix'=>'admin','name'=>'admin.','middleware'=>[Middleware\Authe
     Route::get('/',function(){
         return view('layouts.admin_layout');
     });
+
+    Route::get('report_question',[Controllers\ReportController::class,'streamReportQuestionPDF'])->name('report.question');
+    Route::get('report_question_category',[Controllers\ReportController::class,'streamReportQuestionCategoryPDF'])
+        ->name('report.question_category');
+
 });
 
 Route::group(['prefix'=>'guest','name'=>'guest.','middleware'=>[Middleware\Authenticate::class,

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+    <!-- OWL Header Example -->
+    <owl:Question rdf:about="https://quiz-app.test:8890/">
+        <dc:title>Question Bank https://quiz-app.com</dc:title>
+        <dc:description>An example ontology written for the quiz-app.com RDFS OWL</dc:description>
+    </owl:Question>
+
+    <!-- OWL Class Definition Example -->
+    <owl:Class rdf:about="https://quiz-app.test:8890/question-categories#">
+        <rdfs:label>The question category</rdfs:label>
+        <rdfs:comment>The class of question category.</rdfs:comment>
+    </owl:Class>
+
+    <!-- OWL Subclass Definition -->
+    <owl:Class rdf:about="https://quiz-app.test:8890/question-categories#sd">
+        <rdfs:subClassOf rdf:resource="https://quiz-app.test:8890/question-categories#"/>
+        <rdfs:label>SD</rdfs:label>
+        <rdfs:comment>SD is also known as sekolah dasar</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="https://quiz-app.test:8890/question-categories#smp">
+        <rdfs:subClassOf rdf:resource="https://quiz-app.test:8890/question-categories#"/>
+        <rdfs:label>SMP</rdfs:label>
+        <rdfs:comment>SMP is also known as sekolah menengah pertama.</rdfs:comment>
+    </owl:Class>
+
+    <!-- OWL Class Definition Example -->
+    <owl:Class rdf:about="https://quiz-app.test:8890/questions">
+        <rdfs:label>The question</rdfs:label>
+        <rdfs:comment>The class of question</rdfs:comment>
+    </owl:Class>
+
+    <!-- OWL Subclass Definition -->
+    <owl:Class rdf:about="https://quiz-app.test:8890/question-categories#ilmuan Penemu gravitasi adalah ?">
+        <rdfs:subClassOf rdf:resource="https://quiz-app.test:8890/question-categories#"/>
+        <rdfs:label>ilmuan Penemu gravitasi adalah ?</rdfs:label>
+        <rdfs:comment>Question description</rdfs:comment>
+    </owl:Class>
+
+</rdf:RDF>

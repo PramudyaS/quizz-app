@@ -8,9 +8,15 @@
                     <h3 class="font-medium text-2xl">Question Category</h3>
                     <p class="text-sm">Show all list question category</p>
                 </div>
-                <div class="w-28">
-                    <a class="bg-purple-600 px-3 py-2 text-white rounded-md float-right" href="{{  route
+                <div class="flex justify-self-end">
+                    <div class="w-28">
+                        <a class="bg-purple-600 px-3 py-2 text-white rounded-md float-right" href="{{  route
                     ('question_category.create')  }}">Create</a>
+                    </div>
+                    <div class="w-28">
+                        <a class="bg-gray-600 px-3 py-2 text-white rounded-md float-right" href="{{  route
+                    ('report.question_category')  }}">Download</a>
+                    </div>
                 </div>
             </div>
             <div class="w-full flex justify-end px-2 mt-2">
