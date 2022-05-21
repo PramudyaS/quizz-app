@@ -29,6 +29,7 @@ Route::post('register/store',Auth\RegisterController::class)->name('register.sto
 Route::get('logout',Auth\LogoutController::class)->name('logout');
 
 Route::group(['prefix'=>'admin','name'=>'admin.','middleware'=>[Middleware\Authenticate::class,Middleware\AdminMiddleware::class]],function(){
+    Route::get('dashboard',Controllers\DashboardController::class)->name('dashboard');
     Route::resource('question_category',Controllers\QuestionCategoryController::class);
     Route::resource('question',Controllers\QuestionController::class);
     Route::resource('user',Controllers\UserController::class);
