@@ -7,7 +7,7 @@
         <div class="w-full mt-5">
             <p>Category  : {{  $report->first()->question->question_category->name  }}</p>
             <p>Unique Id : {{  $report->first()->token }}</p>
-            <p>Grade : {{ $correct  }} out of  {{ $incorrect  }} ({{ $percentage  }} %)</p>
+            <p>Grade : {{ $correct  }} out of  {{ $all  }} ({{ $percentage  }} %)</p>
         </div>
         <hr class="my-6">
         @foreach($report as $item)

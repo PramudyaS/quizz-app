@@ -38,10 +38,11 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
+        $token = rand().date('Ymd');
         $user = Auth::user()->id;
-        $answers = collect($request->right_answer)->map(function($item,$key) use($request,$user){
+        $answers = collect($request->right_answer)->map(function($item,$key) use($request,$user,$token){
             return [
-                'token'         => $request->session()->token(),
+                'token'         => $token,
                 'question_id'   => $key,
                 'user_id'       => $user,
                 'answer'        => $request->right_answer[$key],
@@ -54,7 +55,7 @@ class AnswerController extends Controller
 
         $answer = Answer::insert($answers);
 
-        return redirect()->route('answer.show',$request->session()->token())->withMessage('Success do quiz');
+        return redirect()->route('answer.show',$token)->withMessage('Success do quiz');
     }
 
     /**
@@ -71,9 +72,10 @@ class AnswerController extends Controller
 
         $correct    = $report->where('status',1)->count();
         $incorrect  = $report->where('status',0)->count();
-        $percentage = $correct / $incorrect * 100;
+        $all        = $report->count();
+        $percentage = round($correct / $all * 100);
 
-        return view('guest.report_quiz',compact('report','correct','incorrect','percentage'));
+        return view('guest.report_quiz',compact('report','correct','incorrect','percentage','all'));
     }
 
     /**
