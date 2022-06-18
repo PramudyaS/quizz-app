@@ -36,7 +36,7 @@
                     <thead>
                     <tr class="rounded-lg text-sm font-medium text-gray-700 text-left" style="font-size: 0.9674rem">
                         <th class="px-4 py-2 bg-gray-200 ">#</th>
-                        <th class="px-4 py-2 bg-gray-200 ">Category</th>
+                        <th class="px-4 py-2 bg-gray-200 w-20">Category</th>
                         <th class="px-4 py-2 bg-gray-200">Question</th>
                         <th class="px-4 py-2 bg-gray-200">Action</th>
                     </tr>
@@ -45,13 +45,13 @@
                     @forelse($question as $item)
                         <tr class="hover:bg-gray-100 border-b border-gray-200 py-10">
                             <td class="px-4 py-4">{{  $loop->index + 1  }}</td>
-                            <td class="px-4 py-4">{{  $item->question_category->name }}</td>
+                            <td class="px-4 py-4 break-words text-sm max-w-prose">{{  $item->question_category->name }}</td>
                             <td class="px-4 py-4">{{  $item->name }}</td>
-                            <td class="px-4 py-4 text-white">
+                            <td class="px-4 py-4 text-white space-y-2">
                                 <a href="{{  route('question.destroy',$item->id)  }}"
-                                   class="bg-red-500 px-2 py-2 rounded-md delete-action">Delete</a>
+                                   class="bg-red-500 px-2 py-2 inline-block rounded-md delete-action">Delete</a>
                                 <a href="{{  route('question.edit',$item->id)  }}" class="bg-green-500 px-2
-                                 py-2 rounded-md">Edit</a>
+                                 py-2 rounded-md mt-10">Edit</a>
                             </td>
                         </tr>
                     @empty

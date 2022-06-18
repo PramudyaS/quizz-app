@@ -40,9 +40,9 @@
                                     <a href="#" class="py-2 px-8 flex hover:text-purple-700">
                                         Home
                                     </a>
-                                    <a href="#" class="py-2 px-8 flex hover:text-purple-700">
-                                        Quiz Bank
-                                    </a>
+{{--                                    <a href="#" class="py-2 px-8 flex hover:text-purple-700">--}}
+{{--                                        Quiz Bank--}}
+{{--                                    </a>--}}
                                     <a href="{{  route('login')  }}" class="py-2 px-8 flex hover:text-purple-700">
                                         Login
                                     </a>
